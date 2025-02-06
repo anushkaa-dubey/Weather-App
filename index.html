@@ -4,43 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96 text-center">
-        <h1 class="text-2xl font-bold mb-4">Weather App</h1>
-        <input id="location" type="text" placeholder="Enter location" class="border p-2 w-full rounded mb-4">
-        <button onclick="getWeather()" class="bg-blue-600 text-white px-4 py-2 rounded">Get Weather</button>
-        <div id="weatherResult" class="mt-4"></div>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <input type="text" id="locationInput" placeholder="Enter location...">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weatherResult"></div>
     </div>
-    
-    <script>
-        async function getWeather() {
-            const location = document.getElementById('location').value;
-            if (!location) {
-                alert("Please enter a location");
-                return;
-            }
-            const apiKey = "53c03d4468924330a79102054250602";
-            const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}&aqi=yes`;
-            
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data.error) {
-                    document.getElementById('weatherResult').innerHTML = `<p class='text-red-500'>${data.error.message}</p>`;
-                } else {
-                    document.getElementById('weatherResult').innerHTML = `
-                        <h2 class='text-xl font-semibold'>${data.location.name}, ${data.location.country}</h2>
-                        <p class='text-gray-700'>${data.current.condition.text}</p>
-                        <img src="${data.current.condition.icon}" alt="Weather icon" class="mx-auto">
-                        <p class='text-2xl font-bold'>${data.current.temp_c}°C</p>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById('weatherResult').innerHTML = `<p class='text-red-500'>Error fetching data</p>`;
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
